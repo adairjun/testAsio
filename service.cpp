@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <boost/asio.hpp>
-#include "first.pb.h"
+#include "start.pb.h"
 
 using namespace std;
 using namespace boost::asio;
@@ -13,19 +13,27 @@ int main()
 	ip::tcp::endpoint ep(addr, 8888);
 	ip::tcp::acceptor acce(ios, ep);
 	
-	
-	first f;
-	f.set_name("first_name");
-	f.set_family("first_family");
-	f.set_country("first_country");
-	string serstr;
-	f.SerializeToString(&serstr);
+
+	iResponse s;
+	s.set_classmate("iResponse_classmate");
+	s.set_school("iResponse_school");
+	s.set_teacher("iResponse_teacher");
+	string response;
+	s.SerializeToString(&response);
 
 	while(true)
 	{
 		ip::tcp::socket sock(ios);
 		acce.accept(sock);
-		sock.write_some(buffer(serstr));
+		
+		char request[100];
+		sock.read_some(buffer(request));
+		iRequest f;
+		f.ParseFromString(string(request));	
+		cout << f.name().c_str() << endl;
+		cout << f.family().c_str() << endl;
+		cout << f.country().c_str() << endl;
+		sock.write_some(buffer(response));
 	}
 
 	return 0;
