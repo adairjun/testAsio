@@ -1,3 +1,8 @@
+// Copyright 
+// License
+// Author: adairjun
+// This is used to produce a server, listen port 8888, and use protobuf to get message from client and send message to client 
+
 #include <iostream>
 #include <string>
 #include <boost/asio.hpp>
