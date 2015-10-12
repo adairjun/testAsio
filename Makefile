@@ -23,13 +23,14 @@ endif
 ifeq ($(BUILD_VERBOSE),0)
 	QUIET_CC        = @echo '   ' CC $@;
 	QUIET_CXX       = @echo '   ' CXX $@;
+	QUIET_LINK      = @echo '   ' LINK $@;
 endif
 
 all:$(TARGETS)
 	@echo "--------------------------make successful-----------------------"
 
 $(TARGETS):$(OBJECTS)
-	$(QUIET_CXX)$(CXX) $(LDFLAGS) -o $@ $(addsuffix .o, $@) $(LIBS)
+	$(QUIET_LINK)$(CXX) $(LDFLAGS) -o $@ $(addsuffix .o, $@) $(LIBS)
 
 %.o:%.c
 	$(QUIET_CC)$(CC) $(INCLUDE) $(CFLAGS) -c $<
