@@ -29,6 +29,7 @@ int main()
   	ip::tcp::socket sock(ios);
   	acce.accept(sock);
   	
+    // 这是同步模式
   	char request[100];
   	sock.read_some(buffer(request));
   	iRequest f;
